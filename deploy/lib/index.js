@@ -65,6 +65,7 @@ function run() {
                             case 'statefulset':
                                 const name = `${kind.trim()}/${m.metadata.name.trim()}`;
                                 yield checkDeploy(name, namespace);
+                                return;
                             default:
                                 return;
                         }

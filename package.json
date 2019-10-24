@@ -18,6 +18,7 @@
     "@actions/exec": "^1.0.1",
     "@actions/github": "^1.1.0",
     "@actions/tool-cache": "^1.1.2",
+    "@types/js-yaml": "^3.12.1",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
@@ -26,7 +27,7 @@
   },
   "scripts": {
     "build": "npm run namespace && npm run deploy",
-    "namespace": "tsc -p ./namespace -outDir ./namespace/lib",
-    "deploy": "tsc -p ./deploy -outDir ./deploy/lib"
+    "namespace": "tsc -p ./namespace",
+    "deploy": "tsc -p ./deploy"
   }
 }

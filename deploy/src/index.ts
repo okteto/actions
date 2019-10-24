@@ -60,6 +60,7 @@ async function run(){
                     case 'statefulset':
                       const name = `${kind.trim()}/${m.metadata.name.trim()}`
                       await checkDeploy(name, namespace);
+                      return;
                     default:
                         return;
                 }
