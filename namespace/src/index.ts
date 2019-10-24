@@ -15,9 +15,10 @@ async function setOkteto() {
 }
 
 async function setNamespace(path: string, namespace: string, token: string){
-    let toolRunner = new ToolRunner(path, ['namespace', namespace], {
+    let toolRunner = new ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
+        ignoreReturnCode: true,
         env: {
-            "OKTETO_TOKEN": token
+            "OKTETO_TOKEN": token,
         }
     });
     await toolRunner.exec();
@@ -34,6 +35,8 @@ async function run(){
     }
 
     const path = await setOkteto();
+    console.log(`okteto available at: ${path}`);
+    
     await setNamespace(path, namespace, token);
 }
 
