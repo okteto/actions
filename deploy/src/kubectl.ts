@@ -5,9 +5,10 @@ import * as fs from 'fs';
 
 import * as toolCache from '@actions/tool-cache';
 
+export const stableKubectlVersion = 'v1.15.0';
 const kubectlToolName = 'kubectl';
 const stableVersionUrl = `https://storage.googleapis.com/kubernetes-release/release/${stableKubectlVersion}/bin/linux/amd64/kubectl`;
-export const stableKubectlVersion = 'v1.15.0';
+
 
 export async function downloadKubectl(): Promise<string> {
     let cachedToolpath = toolCache.find(kubectlToolName, stableKubectlVersion);
