@@ -1,0 +1,20 @@
+ame: 'Deploy'
+description: 'Deploy to Okteto Cloud'
+inputs: 
+  namespace:
+    description: 'The target Kubernetes namespace.'
+    required: true
+    default: ''
+  manifests:
+    description: 'Path to the Kubernetes manifests.'
+    required: true
+    default: 'k8s.yml'
+  images: 
+    description: 'Your newly build image. Example: okteto/hello:dev'
+    required: false
+outputs:
+  url: 
+    description: 'The URL of your application'
+runs:
+  using: 'node12'
+  main: 'index.js'
