@@ -17,4 +17,4 @@ outputs:
     description: 'The URL of your application'
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'lib/index.js'
