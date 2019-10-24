@@ -24,9 +24,10 @@ function setOkteto() {
 }
 function setNamespace(path, namespace, token) {
     return __awaiter(this, void 0, void 0, function* () {
-        let toolRunner = new toolrunner_1.ToolRunner(path, ['namespace', namespace], {
+        let toolRunner = new toolrunner_1.ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
+            ignoreReturnCode: true,
             env: {
-                "OKTETO_TOKEN": token
+                "OKTETO_TOKEN": token,
             }
         });
         yield toolRunner.exec();
@@ -43,6 +44,7 @@ function run() {
             core.setFailed('No namespace supplied');
         }
         const path = yield setOkteto();
+        console.log(`okteto available at: ${path}`);
         yield setNamespace(path, namespace, token);
     });
 }
