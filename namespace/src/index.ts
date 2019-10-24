@@ -1,7 +1,6 @@
 "use strict";
 
 const core = require('@actions/core');
-const github = require('@actions/github');
 import * as toolCache from '@actions/tool-cache';
 import { downloadOkteto, version } from "./okteto";
 import { ToolRunner } from "@actions/exec/lib/toolrunner";
