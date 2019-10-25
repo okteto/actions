@@ -30,7 +30,7 @@ function substituteImageName(fileContent, image, tag) {
     const fullImage = `${image}:${tag}`;
     return fileContent.split('\n').reduce((acc, line) => {
         console.log(line);
-        const imageKeyword = line.match(/^ *image:/);
+        const imageKeyword = line.match(/^.*image:/);
         if (imageKeyword) {
             console.log(`it's a match: ${imageKeyword}`);
             const [currentImageName, currentImageTag] = line
