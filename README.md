@@ -1,14 +1,14 @@
 # GitHub Actions for Okteto Cloud
 
-GitHub Actions gives you the flexibility to build an automated software development lifecycle workflow.
+Use these actions to deploy your Kubernetes applications directly into [Okteto Cloud](https://cloud.okteto.com).
 
-A set of GitHub Actions for deploying applications into Okteto Cloud.
+# Actions available
 
-Get started today with [a free account](https://cloud.okteto.com)!
+- `namespace`: Retrieve the credentials of the namespace.
+- `update`: Update the image and tag of your manifests.
+- `deploy`: Deploy a new version of your application into Okteto Cloud.
 
-# Usage
-
-## Build a container, push it, and deploy it to Okteto Cloud
+# Example: Build a container, push it, and deploy it to Okteto Cloud
 
 ```
 on: [push]
