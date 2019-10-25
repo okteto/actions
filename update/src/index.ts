@@ -24,14 +24,17 @@ function substituteImageName(fileContent: string, image: string, tag: string): s
   const fullImage = `${image}:${tag}`;
 
   return fileContent.split('\n').reduce((acc, line) => {
+      console.log(line);
       const imageKeyword = line.match(/^ *image:/);
       if (imageKeyword) {
+        console.log(`it's a match: ${imageKeyword}`);
           const [currentImageName, currentImageTag] = line
               .substring(imageKeyword[0].length) // consume the line from keyword onwards
               .trim()
               .replace(/[',"]/g, '') // replace allowed quotes with nothing
               .split(':');
 
+          console.log(`currentImageName: ${currentImageName}`);
           if (currentImageName === image) {
               return acc + `${imageKeyword[0]} ${fullImage}\n`;
           }
