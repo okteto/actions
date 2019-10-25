@@ -27,7 +27,6 @@ function substituteImageName(fileContent, image, tag) {
     if (fileContent.indexOf(image) < 0) {
         return undefined;
     }
-    const fullImage = `${image}:${tag}`;
     return fileContent.split('\n').reduce((acc, line) => {
         console.log(line);
         const imageKeyword = line.match(/^.*image:/);
@@ -39,8 +38,11 @@ function substituteImageName(fileContent, image, tag) {
                 .replace(/[',"]/g, '') // replace allowed quotes with nothing
                 .split(':');
             console.log(`currentImageName: ${currentImageName}`);
+            console.log(`image: ${image}`);
             if (currentImageName === image) {
-                return acc + `${imageKeyword[0]} ${fullImage}\n`;
+                const newline = `${imageKeyword[0]} ${image}:${tag}\n`;
+                console.log(`newline: ${newline}`);
+                return acc + newline;
             }
         }
         return acc + line + '\n';
