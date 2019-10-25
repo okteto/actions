@@ -9,9 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core = require('@actions/core');
 const fs = require("fs");
 const yaml = require("js-yaml");
+const path = require("path");
+const core = require("@actions/core");
+const command_1 = require("@actions/core/lib/command");
 const toolrunner_1 = require("@actions/exec/lib/toolrunner");
 const toolCache = require("@actions/tool-cache");
 const kubectl_1 = require("./kubectl");
@@ -42,6 +44,9 @@ function run() {
         if (!manifestsInput) {
             core.setFailed('No manifests supplied');
         }
+        const kubeconfigPath = path.join('.', `.kube/config`);
+        command_1.issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+        console.log(`KUBECONFIG environment variable is set: ${process.env.KUBECONFIG}`);
         yield getKubectl();
         let manifests = manifestsInput.split('\n');
         //const images = core.getInput('images');

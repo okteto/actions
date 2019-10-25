@@ -1,10 +1,12 @@
 "use strict";
 
-const core = require('@actions/core');
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-import { ToolRunner } from "@actions/exec/lib/toolrunner";
+import * as path from 'path';
 
+import * as core from '@actions/core';
+import { issueCommand } from '@actions/core/lib/command';
+import { ToolRunner } from "@actions/exec/lib/toolrunner";
 import * as toolCache from '@actions/tool-cache';
 import { downloadKubectl, stableKubectlVersion } from "./kubectl";
 
@@ -36,6 +38,10 @@ async function run(){
     if (!manifestsInput) {
         core.setFailed('No manifests supplied');
     }
+
+    const kubeconfigPath = path.join('.', `.kube/config`);
+    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    console.log(`KUBECONFIG environment variable is set: ${process.env.KUBECONFIG}`);
 
     await getKubectl();
     let manifests = manifestsInput.split('\n');

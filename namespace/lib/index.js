@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core = require('@actions/core');
+const core = require("@actions/core");
 const toolCache = require("@actions/tool-cache");
 const okteto_1 = require("./okteto");
 const toolrunner_1 = require("@actions/exec/lib/toolrunner");

@@ -1,6 +1,6 @@
 "use strict";
 
-const core = require('@actions/core');
+import * as core from '@actions/core';
 import * as toolCache from '@actions/tool-cache';
 import { downloadOkteto, version } from "./okteto";
 import { ToolRunner } from "@actions/exec/lib/toolrunner";
