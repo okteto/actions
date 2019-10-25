@@ -12,10 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const fs = require("fs");
 const toolCache = require("@actions/tool-cache");
-const cross_fetch_1 = require("cross-fetch");
 const toolName = 'okteto';
 exports.version = '1.5.1';
-const stableVersionUrl = `https://github.com/okteto/okteto/releases/download/${exports.version}/okteto-Linux-arm64`;
+const stableVersionUrl = `https://s3-us-west-2.amazonaws.com/downloads.okteto.com/cli/${exports.version}/okteto-Linux-arm64`;
 function downloadOkteto() {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedToolpath = toolCache.find(toolName, exports.version);
@@ -23,15 +22,7 @@ function downloadOkteto() {
         if (!cachedToolpath) {
             try {
                 console.log(`downloading ${stableVersionUrl}`);
-                const response = yield cross_fetch_1.default(stableVersionUrl, { method: "head" });
-                console.log(`response ${response.status}`);
-                let realURL = response.headers.get('Location');
-                if (!realURL) {
-                    console.log(`response didn't include a redirect`);
-                    realURL = stableVersionUrl;
-                }
-                console.log(`really downloading ${realURL}`);
-                downloadPath = yield toolCache.downloadTool(realURL);
+                downloadPath = yield toolCache.downloadTool(stableVersionUrl);
             }
             catch (exception) {
                 throw new Error('DownloadKubectlFailed');

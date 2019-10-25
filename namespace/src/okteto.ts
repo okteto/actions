@@ -1,11 +1,10 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as toolCache from '@actions/tool-cache';
-import fetch from 'cross-fetch';
 
 const toolName = 'okteto';
 export const version = '1.5.1';
-const stableVersionUrl = `https://github.com/okteto/okteto/releases/download/${version}/okteto-Linux-arm64`;
+const stableVersionUrl = `https://s3-us-west-2.amazonaws.com/downloads.okteto.com/cli/${version}/okteto-Linux-arm64`;
 
 export async function downloadOkteto(): Promise<string> {
     let cachedToolpath = toolCache.find(toolName, version);
@@ -13,16 +12,7 @@ export async function downloadOkteto(): Promise<string> {
     if (!cachedToolpath) {
         try {
             console.log(`downloading ${stableVersionUrl}`);
-            const response = await fetch(stableVersionUrl, {method: "head"} );
-            console.log(`response ${response.status}`);
-            let realURL = response.headers.get('Location');
-            if (!realURL) {
-                console.log(`response didn't include a redirect`);
-                realURL = stableVersionUrl;
-            }
-            
-            console.log(`really downloading ${realURL}`);
-            downloadPath = await toolCache.downloadTool(realURL);
+            downloadPath = await toolCache.downloadTool(stableVersionUrl);
         } catch (exception) {
             throw new Error('DownloadKubectlFailed');
         }
