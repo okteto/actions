@@ -32,6 +32,12 @@ async function setNamespace(path: string, namespace: string, token: string){
     await toolRunner.exec();
 }
 
+function setKubeconfig() {
+    const kubeconfigPath = path.join('.', `.kube/config`);
+    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    console.log(`KUBECONFIG environment variable is set`);
+}
+
 async function run(){
     let token = core.getInput('token');
     if (!token) {
@@ -46,15 +52,7 @@ async function run(){
     console.log(`okteto available at: ${oktetoPath}`);
     
     await setNamespace(oktetoPath, namespace, token);
-
-    let toolRunner = new ToolRunner('/bin/ls', ['-la']);
-    await toolRunner.exec();
-
-    const kubeconfigPath = path.join('.', `.kube/config`);
-    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
-    console.log(`KUBECONFIG environment variable is set`);
-
-    
+    setKubeconfig();    
 }
 
 run().catch(core.setFailed);

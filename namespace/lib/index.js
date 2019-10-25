@@ -41,6 +41,11 @@ function setNamespace(path, namespace, token) {
         yield toolRunner.exec();
     });
 }
+function setKubeconfig() {
+    const kubeconfigPath = path.join('.', `.kube/config`);
+    command_1.issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    console.log(`KUBECONFIG environment variable is set`);
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         let token = core.getInput('token');
@@ -54,11 +59,7 @@ function run() {
         const oktetoPath = yield setOkteto();
         console.log(`okteto available at: ${oktetoPath}`);
         yield setNamespace(oktetoPath, namespace, token);
-        let toolRunner = new toolrunner_1.ToolRunner('/bin/ls', ['-la']);
-        yield toolRunner.exec();
-        const kubeconfigPath = path.join('.', `.kube/config`);
-        command_1.issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
-        console.log(`KUBECONFIG environment variable is set`);
+        setKubeconfig();
     });
 }
 run().catch(core.setFailed);
