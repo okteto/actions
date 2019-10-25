@@ -4,7 +4,7 @@ import * as toolCache from '@actions/tool-cache';
 
 const toolName = 'okteto';
 export const version = '1.5.1';
-const stableVersionUrl = `https://s3-us-west-2.amazonaws.com/downloads.okteto.com/cli/${version}/okteto-Linux-arm64`;
+const stableVersionUrl = `https://s3-us-west-2.amazonaws.com/downloads.okteto.com/cli/${version}/okteto-Linux-x86_64`;
 
 export async function downloadOkteto(): Promise<string> {
     let cachedToolpath = toolCache.find(toolName, version);
