@@ -9,7 +9,7 @@ function update(manifests: string[], image: string, tag: string) {
     if (fileContent.indexOf(image) > 0) {
       const updatedFileContent = substituteImageName(fileContent, image, tag);
       if (updatedFileContent) {
-        fs.writeFileSync(filePath, fileContent);
+        fs.writeFileSync(filePath, updatedFileContent);
         console.log(`updated ${filePath}`);
       }
     }
@@ -22,29 +22,22 @@ function substituteImageName(fileContent: string, image: string, tag: string): s
   }
 
   return fileContent.split('\n').reduce((acc, line) => {
-      console.log(line);
       const imageKeyword = line.match(/^.*image:/);
       if (imageKeyword) {
-        console.log(`it's a match: ${imageKeyword}`);
           const [currentImageName, currentImageTag] = line
               .substring(imageKeyword[0].length) // consume the line from keyword onwards
               .trim()
               .replace(/[',"]/g, '') // replace allowed quotes with nothing
               .split(':');
 
-          console.log(`currentImageName: ${currentImageName}`);
-          console.log(`image: ${image}`);
           if (currentImageName === image) {
               const newline = `${imageKeyword[0]} ${image}:${tag}\n`;
-              console.log(`newline: ${newline}`);
               return acc + newline;
           }
       }
 
       return acc + line + '\n';
   }, '');
-
-
 }
 
 async function run(){
