@@ -1,8 +1,7 @@
-import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
-
 import * as toolCache from '@actions/tool-cache';
+import fetch from 'cross-fetch';
 
 const toolName = 'okteto';
 export const version = '1.5.1';
@@ -13,7 +12,14 @@ export async function downloadOkteto(): Promise<string> {
     let downloadPath = '';
     if (!cachedToolpath) {
         try {
-          downloadPath = await toolCache.downloadTool(stableVersionUrl);
+            console.log(`downloading ${stableVersionUrl}`);
+            const response = await fetch(stableVersionUrl, {method: "head"} );
+            let realURL = response.headers.get('location');
+            if (!realURL) {
+                realURL = stableVersionUrl;
+            }
+            console.log(`really downloading ${realURL}`);
+            downloadPath = await toolCache.downloadTool(realURL);
         } catch (exception) {
             throw new Error('DownloadKubectlFailed');
         }

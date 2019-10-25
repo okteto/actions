@@ -23,10 +23,6 @@ async function checkDeploy(name: string, namespace: string) {
 }
 
 async function run(){
-    if (!process.env["KUBECONFIG"]) {
-        core.setFailed('Kubernetes context not set. Use namespace action to configure the Kubernetes context.');
-    }
-
     let namespace = core.getInput('namespace');
     if (!namespace) {
         core.setFailed('No namespace supplied');
