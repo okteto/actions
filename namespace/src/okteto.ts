@@ -14,10 +14,13 @@ export async function downloadOkteto(): Promise<string> {
         try {
             console.log(`downloading ${stableVersionUrl}`);
             const response = await fetch(stableVersionUrl, {method: "head"} );
-            let realURL = response.headers.get('location');
+            console.log(`response ${response.status}`);
+            let realURL = response.headers.get('Location');
             if (!realURL) {
+                console.log(`response didn't include a redirect`);
                 realURL = stableVersionUrl;
             }
+            
             console.log(`really downloading ${realURL}`);
             downloadPath = await toolCache.downloadTool(realURL);
         } catch (exception) {
