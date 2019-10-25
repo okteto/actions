@@ -10,6 +10,12 @@ Use these actions to deploy your Kubernetes applications directly into [Okteto C
 
 # Example: Build a container, push it, and deploy it to Okteto Cloud
 
+## Prerequisites
+
+- Login to https://cloud.okteto.com and create a namespace.
+- Retrieve your API token from https://cloud.okteto.com.
+- [Create a secret](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in your repository named `OKTETO_TOKEN`, with your token as the value.
+
 ```
 on: [push]
 
@@ -45,6 +51,8 @@ jobs:
           manifests/deployment.yml
           manifests/service.yml
 ```
+
+[Review this sample repo](https://github.com/rberrelleza/actions-test) to see a live example of the different available actions.
 
 # Contributing
 
