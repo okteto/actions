@@ -43,10 +43,6 @@ function run() {
         console.log(`KUBECONFIG environment variable is set: ${process.env.KUBECONFIG}`);
         yield getKubectl();
         let manifests = manifestsInput.split('\n');
-        //const images = core.getInput('images');
-        //if (!!images) {
-        //    manifests = updateManifests(manifests, images)
-        //}
         for (var i = 0; i < manifests.length; i++) {
             let toolRunner = new toolrunner_1.ToolRunner(kubectlPath, ['apply', '-f', manifests[i], '--namespace', namespace]);
             yield toolRunner.exec();

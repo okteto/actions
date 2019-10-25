@@ -23,19 +23,26 @@ jobs:
         docker build . -t okteto/hello:${{ github.sha }}
         docker push okteto/hello:${{ github.sha }}
       
-    - uses: okteto/actions/namespace@master
+    - uses: okteto/actions/update@master
       with:
-        token: ${{ OKTETO_TOKEN }}
-        namespace: ${{ github.actor }}
-        
-    - uses: okteto/actions/deploy@master
-      with:
-        namespace: ${{ github.actor }}
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
-        images: |
-          okteto/hello:${{ github.sha }}
+        image: okteto/hello
+        tag: ${{ github.sha }}
+        
+
+    - uses: okteto/actions/namespace@master
+      with:
+        token: ${{ OKTETO_TOKEN }}
+        namespace: action-rberrelleza
+        
+    - uses: okteto/actions/deploy@master
+      with:
+        namespace: action-rberrelleza
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
 ```
 
 # Contributing
