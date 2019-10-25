@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
 const core = require("@actions/core");
+const command_1 = require("@actions/core/lib/command");
 const toolCache = require("@actions/tool-cache");
 const okteto_1 = require("./okteto");
 const toolrunner_1 = require("@actions/exec/lib/toolrunner");
@@ -23,9 +25,9 @@ function setOkteto() {
         return oktetoPath;
     });
 }
-function makeExecutable(path) {
+function makeExecutable(oktetoPath) {
     return __awaiter(this, void 0, void 0, function* () {
-        let toolRunner = new toolrunner_1.ToolRunner('/bin/chmod', ['+x', path]);
+        let toolRunner = new toolrunner_1.ToolRunner('/bin/chmod', ['+x', oktetoPath]);
         yield toolRunner.exec();
     });
 }
@@ -49,11 +51,14 @@ function run() {
         if (!namespace) {
             core.setFailed('No namespace supplied');
         }
-        const path = yield setOkteto();
-        console.log(`okteto available at: ${path}`);
-        yield setNamespace(path, namespace, token);
+        const oktetoPath = yield setOkteto();
+        console.log(`okteto available at: ${oktetoPath}`);
+        yield setNamespace(oktetoPath, namespace, token);
         let toolRunner = new toolrunner_1.ToolRunner('/bin/ls', ['-la']);
         yield toolRunner.exec();
+        const kubeconfigPath = path.join('.', `.kube/config`);
+        command_1.issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+        console.log(`KUBECONFIG environment variable is set`);
     });
 }
 run().catch(core.setFailed);

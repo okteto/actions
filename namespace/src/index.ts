@@ -1,6 +1,8 @@
 "use strict";
+import * as path from 'path';
 
 import * as core from '@actions/core';
+import { issueCommand } from '@actions/core/lib/command';
 import * as toolCache from '@actions/tool-cache';
 import { downloadOkteto, version } from "./okteto";
 import { ToolRunner } from "@actions/exec/lib/toolrunner";
@@ -16,8 +18,8 @@ async function setOkteto() {
 }
 
 
-async function makeExecutable(path: string){
-    let toolRunner = new ToolRunner('/bin/chmod', ['+x', path]);
+async function makeExecutable(oktetoPath: string){
+    let toolRunner = new ToolRunner('/bin/chmod', ['+x', oktetoPath]);
     await toolRunner.exec();
 }
 
@@ -40,13 +42,19 @@ async function run(){
         core.setFailed('No namespace supplied');
     }
 
-    const path = await setOkteto();
-    console.log(`okteto available at: ${path}`);
+    const oktetoPath = await setOkteto();
+    console.log(`okteto available at: ${oktetoPath}`);
     
-    await setNamespace(path, namespace, token);
+    await setNamespace(oktetoPath, namespace, token);
 
     let toolRunner = new ToolRunner('/bin/ls', ['-la']);
     await toolRunner.exec();
+
+    const kubeconfigPath = path.join('.', `.kube/config`);
+    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    console.log(`KUBECONFIG environment variable is set`);
+
+    
 }
 
 run().catch(core.setFailed);
