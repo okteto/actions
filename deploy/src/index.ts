@@ -23,6 +23,10 @@ async function checkDeploy(name: string, namespace: string) {
 }
 
 async function run(){
+
+    let toolRunner = new ToolRunner('/bin/ls', ['-la']);
+    await toolRunner.exec();
+    
     let namespace = core.getInput('namespace');
     if (!namespace) {
         core.setFailed('No namespace supplied');

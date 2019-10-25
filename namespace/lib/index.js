@@ -31,7 +31,7 @@ function makeExecutable(path) {
 }
 function setNamespace(path, namespace, token) {
     return __awaiter(this, void 0, void 0, function* () {
-        let toolRunner = new toolrunner_1.ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
+        let toolRunner = new toolrunner_1.ToolRunner(path, ['namespace', namespace], {
             env: {
                 "OKTETO_TOKEN": token,
             }
@@ -52,6 +52,8 @@ function run() {
         const path = yield setOkteto();
         console.log(`okteto available at: ${path}`);
         yield setNamespace(path, namespace, token);
+        let toolRunner = new toolrunner_1.ToolRunner('/bin/ls', ['-la']);
+        yield toolRunner.exec();
     });
 }
 run().catch(core.setFailed);

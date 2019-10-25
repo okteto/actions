@@ -32,6 +32,8 @@ function checkDeploy(name, namespace) {
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        let toolRunner = new toolrunner_1.ToolRunner('/bin/ls', ['-la']);
+        yield toolRunner.exec();
         let namespace = core.getInput('namespace');
         if (!namespace) {
             core.setFailed('No namespace supplied');

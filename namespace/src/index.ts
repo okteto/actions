@@ -22,7 +22,7 @@ async function makeExecutable(path: string){
 }
 
 async function setNamespace(path: string, namespace: string, token: string){
-    let toolRunner = new ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
+    let toolRunner = new ToolRunner(path, ['namespace', namespace], {
         env: {
             "OKTETO_TOKEN": token,
         }
@@ -44,6 +44,9 @@ async function run(){
     console.log(`okteto available at: ${path}`);
     
     await setNamespace(path, namespace, token);
+
+    let toolRunner = new ToolRunner('/bin/ls', ['-la']);
+    await toolRunner.exec();
 }
 
 run().catch(core.setFailed);
