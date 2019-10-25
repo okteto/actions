@@ -18,14 +18,20 @@ function setOkteto() {
         let oktetoPath = toolCache.find('okteto', okteto_1.version);
         if (!oktetoPath) {
             oktetoPath = yield okteto_1.downloadOkteto();
+            yield makeExecutable(oktetoPath);
         }
         return oktetoPath;
+    });
+}
+function makeExecutable(path) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let toolRunner = new toolrunner_1.ToolRunner('/bin/chmod', ['+x', path]);
+        yield toolRunner.exec();
     });
 }
 function setNamespace(path, namespace, token) {
     return __awaiter(this, void 0, void 0, function* () {
         let toolRunner = new toolrunner_1.ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
-            ignoreReturnCode: true,
             env: {
                 "OKTETO_TOKEN": token,
             }

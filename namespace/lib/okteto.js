@@ -25,7 +25,7 @@ function downloadOkteto() {
                 downloadPath = yield toolCache.downloadTool(stableVersionUrl);
             }
             catch (exception) {
-                throw new Error('DownloadKubectlFailed');
+                throw new Error(`failed to download: ${exception}`);
             }
             cachedToolpath = yield toolCache.cacheFile(downloadPath, toolName, toolName, exports.version);
         }

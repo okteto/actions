@@ -9,14 +9,20 @@ async function setOkteto() {
     let oktetoPath = toolCache.find('okteto', version);
     if (!oktetoPath) {
         oktetoPath = await downloadOkteto()
+        await makeExecutable(oktetoPath);
     }
 
     return oktetoPath;
 }
 
+
+async function makeExecutable(path: string){
+    let toolRunner = new ToolRunner('/bin/chmod', ['+x', path]);
+    await toolRunner.exec();
+}
+
 async function setNamespace(path: string, namespace: string, token: string){
     let toolRunner = new ToolRunner(path, ['namespace', namespace, "-l", "debug"], {
-        ignoreReturnCode: true,
         env: {
             "OKTETO_TOKEN": token,
         }

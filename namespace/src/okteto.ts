@@ -14,7 +14,7 @@ export async function downloadOkteto(): Promise<string> {
             console.log(`downloading ${stableVersionUrl}`);
             downloadPath = await toolCache.downloadTool(stableVersionUrl);
         } catch (exception) {
-            throw new Error('DownloadKubectlFailed');
+            throw new Error(`failed to download: ${exception}`);
         }
 
         cachedToolpath = await toolCache.cacheFile(downloadPath, toolName, toolName, version);
