@@ -1,0 +1,18 @@
+ame: 'Update'
+description: 'Update the image in a manifest'
+inputs: 
+  image:
+    description: 'The target image.'
+    required: true
+    default: ''
+  tag:
+    description: 'The new tag.'
+    required: true
+    default: 'latest'
+  manifests:
+    description: 'Path to the Kubernetes manifests.'
+    required: true
+    default: 'k8s.yml'
+runs:
+  using: 'node12'
+  main: 'lib/index.js'

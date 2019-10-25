@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs",
+      "outDir": "lib",
+      "strict": true,
+      "rootDir": "src",
+      "noImplicitReturns": true, 
+		  "noFallthroughCasesInSwitch": true, 
+		  "noUnusedParameters": true
+  },
+  "exclude": [
+      "node_modules"
+  ]
+}

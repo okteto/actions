@@ -1,0 +1,13 @@
+ame: 'Namespace'
+description: 'Create and get the credentials for a Okteto Cloud namespace'
+inputs: 
+  namespace:
+    description: 'The target Kubernetes namespace.'
+    required: true
+    default: ''
+  token: 
+    description: 'Your okteto API token'
+    required: true
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
