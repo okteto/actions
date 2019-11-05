@@ -25,11 +25,11 @@ async function checkDeploy(name: string, namespace: string) {
 async function kustomization(manifests: string[], image: string, tag: string){
   promises.writeFile('kustomization.yaml', yaml.safeDump({
     resources: manifests,
-    images: {
+    images: [{
       name: image,
       newName: image,
       newTag: tag
-    }})
+    }]})
   );
 }
 
@@ -87,6 +87,7 @@ async function run(){
     await toolRunner.exec();
     
     await waitForReady(manifests, namespace);
+
     core.setOutput("url", `https://cloud.okteto.com/#/spaces/${namespace}`);
 }
 
