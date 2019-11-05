@@ -18,7 +18,7 @@ async function getKubectl() {
 }
 
 async function checkDeploy(name: string, namespace: string) {
-    const toolrunner = new ToolRunner(kubectlPath, ['rollout', 'status', name, `--namespace`, namespace]);
+    const toolrunner = new ToolRunner(kubectlPath, ['rollout', 'status', name, '--namespace', namespace, '--timeout', '300s']);
     return toolrunner.exec();
 }
 
