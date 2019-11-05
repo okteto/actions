@@ -5,8 +5,7 @@ Use these actions to deploy your Kubernetes applications directly into [Okteto C
 # Actions available
 
 - `namespace`: Retrieve the credentials of the namespace from Okteto Cloud.
-- `update`: Update the image and tag of your manifests with the images you just build.
-- `deploy`: Deploy a new version of your application into Okteto Cloud, using the credentials retrieved in the `namespace` step.
+- `deploy`: Update the image using kustomize and then deploy a new version of your application into Okteto Cloud, using the credentials retrieved in the `namespace` step. 
 
 # Example: Build a container, push it, and deploy it to Okteto Cloud
 
