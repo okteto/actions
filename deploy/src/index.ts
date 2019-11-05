@@ -83,6 +83,10 @@ async function run(){
     let manifests = manifestsInput.split('\n');
     await kustomization(manifests, image, tag);
     
+    
+    let toolRunner1 = new ToolRunner('cat', ['kustomization.yaml']);
+    await toolRunner1.exec();
+
     let toolRunner = new ToolRunner(kubectlPath, ['apply', '-k', './', '--namespace', namespace]);
     await toolRunner.exec();
     
