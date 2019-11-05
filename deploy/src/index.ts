@@ -23,6 +23,16 @@ async function checkDeploy(name: string, namespace: string) {
 }
 
 async function kustomization(manifests: string[], image: string, tag: string){
+  const path = 'kustomization.yaml';
+  try{
+      await promises.access(path);
+      return;
+  } catch(err) {
+    if (err.code !== 'ENOENT') {
+      throw err;
+    }
+  }
+
   const k = yaml.safeDump({
     resources: manifests,
     images: [{

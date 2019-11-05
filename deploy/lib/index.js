@@ -32,6 +32,16 @@ function checkDeploy(name, namespace) {
 }
 function kustomization(manifests, image, tag) {
     return __awaiter(this, void 0, void 0, function* () {
+        const path = 'kustomization.yaml';
+        try {
+            yield fs_1.promises.access(path);
+            return;
+        }
+        catch (err) {
+            if (err.code !== 'ENOENT') {
+                throw err;
+            }
+        }
         const k = yaml.safeDump({
             resources: manifests,
             images: [{
