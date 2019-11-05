@@ -26,6 +26,7 @@ async function kustomization(manifests: string[], image: string, tag: string){
   const path = 'kustomization.yaml';
   try{
       await promises.access(path);
+      console.log(`kustomization.yaml already exists, reusing it instead`);
       return;
   } catch(err) {
     if (err.code !== 'ENOENT') {
@@ -40,7 +41,7 @@ async function kustomization(manifests: string[], image: string, tag: string){
       newName: image,
       newTag: tag
     }]});
-  console.log(k);
+  
   await promises.writeFile('kustomization.yaml', k);
 }
 
@@ -58,9 +59,9 @@ async function waitForReady(manifests: string[], namespace: string) {
             case 'statefulset':
               const name = `${kind.trim()}/${m.metadata.name.trim()}`
               await checkDeploy(name, namespace);
-              break;
+              continue;
             default:
-              break;
+              continue;
           }
         } 
     }

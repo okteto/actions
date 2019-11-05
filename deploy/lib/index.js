@@ -26,7 +26,7 @@ function getKubectl() {
 }
 function checkDeploy(name, namespace) {
     return __awaiter(this, void 0, void 0, function* () {
-        const toolrunner = new toolrunner_1.ToolRunner(kubectlPath, ['rollout', 'status', name, `--namespace`, namespace]);
+        const toolrunner = new toolrunner_1.ToolRunner(kubectlPath, ['rollout', 'status', name, '--namespace', namespace, '--timeout', '300s']);
         return toolrunner.exec();
     });
 }
@@ -35,6 +35,7 @@ function kustomization(manifests, image, tag) {
         const path = 'kustomization.yaml';
         try {
             yield fs_1.promises.access(path);
+            console.log(`kustomization.yaml already exists, reusing it instead`);
             return;
         }
         catch (err) {
@@ -50,7 +51,6 @@ function kustomization(manifests, image, tag) {
                     newTag: tag
                 }]
         });
-        console.log(k);
         yield fs_1.promises.writeFile('kustomization.yaml', k);
     });
 }
@@ -69,9 +69,9 @@ function waitForReady(manifests, namespace) {
                         case 'statefulset':
                             const name = `${kind.trim()}/${m.metadata.name.trim()}`;
                             yield checkDeploy(name, namespace);
-                            break;
+                            continue;
                         default:
-                            break;
+                            continue;
                     }
                 }
             }
