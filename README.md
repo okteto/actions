@@ -30,15 +30,6 @@ jobs:
         docker build . -t okteto/hello:${{ github.sha }}
         docker push okteto/hello:${{ github.sha }}
       
-    - uses: okteto/actions/update@master
-      with:
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-        image: okteto/hello
-        tag: ${{ github.sha }}
-        
-
     - uses: okteto/actions/namespace@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
@@ -50,6 +41,8 @@ jobs:
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
+        image: okteto/hello
+        tag: ${{ github.sha }}
 ```
 
 [Review this sample repo](https://github.com/rberrelleza/actions-test) to see a live example of the different available actions.

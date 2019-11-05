@@ -1,6 +1,6 @@
 "use strict";
 
-import * as fs from 'fs';
+import {promises} from 'fs';
 import * as yaml from 'js-yaml';
 
 import * as core from '@actions/core';
@@ -22,6 +22,40 @@ async function checkDeploy(name: string, namespace: string) {
     return toolrunner.exec();
 }
 
+async function kustomization(manifests: string[], image: string, tag: string){
+  promises.writeFile('kustomization.yaml', yaml.safeDump({
+    resources: manifests,
+    images: {
+      name: image,
+      newName: image,
+      newTag: tag
+    }})
+  );
+}
+
+async function waitForReady(manifests: string[], namespace: string) {
+  for (var i = 0; i < manifests.length; i++) {
+    let content = await promises.readFile(manifests[i]);
+    const loaded = yaml.safeLoadAll(content.toString())
+    for (var j = 0; j < loaded.length; j++){
+        const m = loaded[j];
+        if (!!m.kind && !!m.metadata && !!m.metadata.name) {
+          let kind: string = m.kind;
+          switch (kind.toLowerCase()) {
+            case 'deployment':
+            case 'daemonset':
+            case 'statefulset':
+              const name = `${kind.trim()}/${m.metadata.name.trim()}`
+              await checkDeploy(name, namespace);
+              break;
+            default:
+              break;
+          }
+        } 
+    }
+  }
+}
+
 async function run(){
     let namespace = core.getInput('namespace');
     if (!namespace) {
@@ -33,34 +67,26 @@ async function run(){
         core.setFailed('No manifests supplied');
     }
 
+    const image = core.getInput('image');
+    if (!image) {
+      core.setFailed('No image supplied');
+    }
+
+    const tag = core.getInput('tag');
+    if (!tag) {
+      core.setFailed('No tag supplied');
+    }
+
     console.log(`KUBECONFIG environment variable is set: ${process.env.KUBECONFIG}`);
     await getKubectl();
-    let manifests = manifestsInput.split('\n');
     
-    for (var i = 0; i < manifests.length; i++) {
-        let toolRunner = new ToolRunner(kubectlPath, ['apply', '-f', manifests[i], '--namespace', namespace]);
-        await toolRunner.exec();
-    }
-
-    for (var i = 0; i < manifests.length; i++) {
-        let content = fs.readFileSync(manifests[i]).toString();
-        yaml.safeLoadAll(content, async function (m: any) {
-            if (!!m.kind && !!m.metadata && !!m.metadata.name) {
-                let kind: string = m.kind;
-                switch (kind.toLowerCase()) {
-                    case 'deployment':
-                    case 'daemonset':
-                    case 'statefulset':
-                      const name = `${kind.trim()}/${m.metadata.name.trim()}`
-                      await checkDeploy(name, namespace);
-                      return;
-                    default:
-                        return;
-                }
-            }
-        });
-    }
-
+    let manifests = manifestsInput.split('\n');
+    await kustomization(manifests, image, tag);
+    
+    let toolRunner = new ToolRunner(kubectlPath, ['apply', '-k', './', '--namespace', namespace]);
+    await toolRunner.exec();
+    
+    await waitForReady(manifests, namespace);
     core.setOutput("url", `https://cloud.okteto.com/#/spaces/${namespace}`);
 }
 

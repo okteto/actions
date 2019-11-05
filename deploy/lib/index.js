@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
+const fs_1 = require("fs");
 const yaml = require("js-yaml");
 const core = require("@actions/core");
 const toolrunner_1 = require("@actions/exec/lib/toolrunner");
@@ -30,6 +30,42 @@ function checkDeploy(name, namespace) {
         return toolrunner.exec();
     });
 }
+function kustomization(manifests, image, tag) {
+    return __awaiter(this, void 0, void 0, function* () {
+        fs_1.promises.writeFile('kustomization.yaml', yaml.safeDump({
+            resources: manifests,
+            images: {
+                name: image,
+                newName: image,
+                newTag: tag
+            }
+        }));
+    });
+}
+function waitForReady(manifests, namespace) {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (var i = 0; i < manifests.length; i++) {
+            let content = yield fs_1.promises.readFile(manifests[i]);
+            const loaded = yaml.safeLoadAll(content.toString());
+            for (var j = 0; j < loaded.length; j++) {
+                const m = loaded[j];
+                if (!!m.kind && !!m.metadata && !!m.metadata.name) {
+                    let kind = m.kind;
+                    switch (kind.toLowerCase()) {
+                        case 'deployment':
+                        case 'daemonset':
+                        case 'statefulset':
+                            const name = `${kind.trim()}/${m.metadata.name.trim()}`;
+                            yield checkDeploy(name, namespace);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    });
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         let namespace = core.getInput('namespace');
@@ -40,33 +76,21 @@ function run() {
         if (!manifestsInput) {
             core.setFailed('No manifests supplied');
         }
+        const image = core.getInput('image');
+        if (!image) {
+            core.setFailed('No image supplied');
+        }
+        const tag = core.getInput('tag');
+        if (!tag) {
+            core.setFailed('No tag supplied');
+        }
         console.log(`KUBECONFIG environment variable is set: ${process.env.KUBECONFIG}`);
         yield getKubectl();
         let manifests = manifestsInput.split('\n');
-        for (var i = 0; i < manifests.length; i++) {
-            let toolRunner = new toolrunner_1.ToolRunner(kubectlPath, ['apply', '-f', manifests[i], '--namespace', namespace]);
-            yield toolRunner.exec();
-        }
-        for (var i = 0; i < manifests.length; i++) {
-            let content = fs.readFileSync(manifests[i]).toString();
-            yaml.safeLoadAll(content, function (m) {
-                return __awaiter(this, void 0, void 0, function* () {
-                    if (!!m.kind && !!m.metadata && !!m.metadata.name) {
-                        let kind = m.kind;
-                        switch (kind.toLowerCase()) {
-                            case 'deployment':
-                            case 'daemonset':
-                            case 'statefulset':
-                                const name = `${kind.trim()}/${m.metadata.name.trim()}`;
-                                yield checkDeploy(name, namespace);
-                                return;
-                            default:
-                                return;
-                        }
-                    }
-                });
-            });
-        }
+        yield kustomization(manifests, image, tag);
+        let toolRunner = new toolrunner_1.ToolRunner(kubectlPath, ['apply', '-k', './', '--namespace', namespace]);
+        yield toolRunner.exec();
+        yield waitForReady(manifests, namespace);
         core.setOutput("url", `https://cloud.okteto.com/#/spaces/${namespace}`);
     });
 }
