@@ -23,14 +23,15 @@ async function checkDeploy(name: string, namespace: string) {
 }
 
 async function kustomization(manifests: string[], image: string, tag: string){
-  promises.writeFile('kustomization.yaml', yaml.safeDump({
+  const k = yaml.safeDump({
     resources: manifests,
     images: [{
       name: image,
       newName: image,
       newTag: tag
-    }]})
-  );
+    }]});
+  console.log(k);
+  await promises.writeFile('kustomization.yaml', k);
 }
 
 async function waitForReady(manifests: string[], namespace: string) {
@@ -83,10 +84,6 @@ async function run(){
     let manifests = manifestsInput.split('\n');
     await kustomization(manifests, image, tag);
     
-    
-    let toolRunner1 = new ToolRunner('cat', ['kustomization.yaml']);
-    await toolRunner1.exec();
-
     let toolRunner = new ToolRunner(kubectlPath, ['apply', '-k', './', '--namespace', namespace]);
     await toolRunner.exec();
     
