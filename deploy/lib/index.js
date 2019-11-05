@@ -32,14 +32,16 @@ function checkDeploy(name, namespace) {
 }
 function kustomization(manifests, image, tag) {
     return __awaiter(this, void 0, void 0, function* () {
-        fs_1.promises.writeFile('kustomization.yaml', yaml.safeDump({
+        const k = yaml.safeDump({
             resources: manifests,
-            images: {
-                name: image,
-                newName: image,
-                newTag: tag
-            }
-        }));
+            images: [{
+                    name: image,
+                    newName: image,
+                    newTag: tag
+                }]
+        });
+        console.log(k);
+        yield fs_1.promises.writeFile('kustomization.yaml', k);
     });
 }
 function waitForReady(manifests, namespace) {
