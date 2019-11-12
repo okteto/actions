@@ -1,4 +1,4 @@
-ame: 'Deploy'
+name: 'Deploy'
 description: 'Deploy to Okteto Cloud'
 inputs: 
   namespace:
@@ -9,6 +9,14 @@ inputs:
     description: 'Path to the Kubernetes manifests.'
     required: true
     default: 'k8s.yml'
+  image:
+    description: 'Docker image to update.'
+    required: true
+    default: ''
+  tag:
+    description: 'The new tag.'
+    required: true
+    default: ''
 outputs:
   url: 
     description: 'The URL of your application'
