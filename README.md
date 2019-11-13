@@ -32,6 +32,7 @@ jobs:
         tag: okteto/hello:${{ github.sha }}
 
     - uses: okteto/actions/namespace@master
+      id: namespace
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
         namespace: action-rberrelleza
@@ -44,6 +45,8 @@ jobs:
           manifests/service.yml
         image: okteto/hello
         tag: ${{ github.sha }}
+      env:
+        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
 ```
 
 [Review this sample repo](https://github.com/rberrelleza/actions-test) to see a live example of the different available actions.
