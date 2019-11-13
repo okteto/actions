@@ -1,0 +1,20 @@
+name: 'Build'
+description: 'Build an image from a Dockerfile using Okteto Cloud'
+inputs: 
+  tag:
+    description: 'Name and optionally a tag in the "name:tag" format'
+    required: true
+  token: 
+    description: 'Your okteto API token'
+    required: true
+  file:
+    description: 'Name of the Dockerfile (Default is "Dockerfile")'
+    required: false
+    default: 'Dockerfile'
+  path:
+    description: 'The path'
+    required: false
+    default: '.'
+runs:
+  using: 'node12'
+  main: 'lib/index.js'

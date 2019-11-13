@@ -24,11 +24,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - run: |
-        docker login -u ramiro -p ${{ secrets.DOCKER_PASSWORD}}
-        docker build . -t okteto/hello:${{ github.sha }}
-        docker push okteto/hello:${{ github.sha }}
+    - run: docker login -u ramiro -p ${{ secrets.DOCKER_PASSWORD}}
       
+    - uses: okteto/actions/build@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+        tag: okteto/hello:${{ github.sha }}
+
     - uses: okteto/actions/namespace@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}

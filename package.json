@@ -26,8 +26,9 @@
     "typescript": "^3.6.4"
   },
   "scripts": {
-    "build": "npm run namespace && npm run deploy",
+    "build": "npm run namespace && npm run deploy && npm run buildImage",
     "namespace": "tsc -p ./namespace",
-    "deploy": "tsc -p ./deploy"
+    "deploy": "tsc -p ./deploy",
+    "buildImage": "tsc -p ./build"
   }
 }
