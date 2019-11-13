@@ -40,7 +40,7 @@ Update the image using kustomize and then deploy a new version of your applicati
 The path to the manifest to modify. Default `"k8s.yml"`.
 
 #### `waitOn`
-Name of the resource to wait on. Must follow the "resource/name" format.
+Name of the resource to wait on. Must follow the `"resource/name"` format.
 
 ## Namespace
 Retrieve the credentials of the namespace from Okteto Cloud.
