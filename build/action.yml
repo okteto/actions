@@ -2,7 +2,7 @@ name: 'Build'
 description: 'Build an image from a Dockerfile using Okteto Cloud'
 inputs: 
   tag:
-    description: 'Name and optionally a tag in the "name:tag" format'
+    description: 'Name and tag in the "name:tag" format'
     required: true
   token: 
     description: 'Your okteto API token'
@@ -16,5 +16,10 @@ inputs:
     required: false
     default: '.'
 runs:
-  using: 'node12'
-  main: 'lib/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.tag }}
+    - ${{ inputs.file }}
+    - ${{ inputs.path }}
