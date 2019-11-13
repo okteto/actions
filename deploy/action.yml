@@ -14,6 +14,9 @@ inputs:
   tag:
     description: 'The new tag.'
     required: true
+  waitOn:
+    description: 'Wait until this resource is ready. Must follow the "resource/name" format'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -22,3 +25,4 @@ runs:
     - ${{ inputs.manifest }}
     - ${{ inputs.image }}
     - ${{ inputs.tag }}
+    - ${{ inputs.waitOn }}
