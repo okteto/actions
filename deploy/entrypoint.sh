@@ -13,8 +13,8 @@ resources:
  - $manifest
 images:
  - name: $image
- - newName: $image
- - newTag: $tag
+   newName: $image
+   newTag: $tag
 EOF
 cat kustomization.yaml
 fi
@@ -22,5 +22,5 @@ fi
 kubectl apply -k ./ --namespace $namespace
 
 if [ ! -z $waitOn ]; then
-kubectl rollout status $waitOn --namespace $namespace
+kubectl rollout status $waitOn --namespace $namespace --timeout=300s
 fi
