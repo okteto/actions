@@ -1,4 +1,5 @@
 #!/bin/sh
+ls -la 
 namespace=$1
 manifest=$2
 image=$3
@@ -16,4 +17,6 @@ EOF
 cat kustomization.yaml
 fi
 
-kubectl apply -k ./ --namespace namespace
+kubectl apply -k ./ --namespace $namespace
+
+kubectl rollout status --name --namespace $namespace

@@ -5,5 +5,5 @@ namespace=$2
 export OKTETO_TOKEN=$token
 okteto version
 okteto namespace "$namespace"
-k="$(pwd)/.kube/config"
+k="/github/home/.kube/config"
 echo "::set-output name=kubeconfig::$k"

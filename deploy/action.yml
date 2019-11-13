@@ -19,6 +19,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.namespace }}
-    - ${{ inputs.manifests }}
+    - ${{ inputs.manifest }}
     - ${{ inputs.image }}
     - ${{ inputs.tag }}
