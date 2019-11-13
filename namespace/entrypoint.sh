@@ -5,6 +5,7 @@ fild=$3
 path=$4
 
 export OKTETO_TOKEN=$token
+okteto version
 okteto namespace "$namespace"
 k="$(pwd)/.kube/config"
 export KUBECONFIG=$k

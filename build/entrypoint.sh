@@ -9,4 +9,5 @@ ls -la
 
 export OKTETO_TOKEN=$token
 echo okteto build -t "$tag" -f "$file" "$path"
+okteto version
 okteto build -t "$tag" -f "$file" "$path"
