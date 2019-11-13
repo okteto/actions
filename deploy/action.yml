@@ -8,11 +8,8 @@ inputs:
     description: 'Path to the Kubernetes manifest.'
     required: false
     default: 'k8s.yml'
-  image:
-    description: 'Docker image to update.'
-    required: true
   tag:
-    description: 'The new tag.'
+    description: 'Name and optionally a tag in the "name:tag" format'
     required: true
   waitOn:
     description: 'Wait until this resource is ready. Must follow the "resource/name" format'
@@ -23,6 +20,5 @@ runs:
   args:
     - ${{ inputs.namespace }}
     - ${{ inputs.manifest }}
-    - ${{ inputs.image }}
     - ${{ inputs.tag }}
     - ${{ inputs.waitOn }}

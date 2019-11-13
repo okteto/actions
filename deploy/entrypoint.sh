@@ -1,11 +1,18 @@
 #!/bin/sh
-set -e
+set -ex
 
 namespace=$1
 manifest=$2
-image=$3
-tag=$4
-waitOn=$5
+full=$3
+waitOn=$4
+
+tag=$(echo $full | cut -d':' -f1)
+image=$(echo $full | cut -d':' -f2)
+
+if [ -z $image ]; then
+image='latest'
+fi
+
 
 if [ ! -f kustomization.yaml ]; then 
 cat << EOF > kustomization.yaml
