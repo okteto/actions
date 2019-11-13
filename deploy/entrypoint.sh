@@ -6,11 +6,11 @@ manifest=$2
 full=$3
 waitOn=$4
 
-tag=$(echo $full | cut -d':' -f1)
-image=$(echo $full | cut -d':' -f2)
+image=$(echo $full | cut -d':' -f1)
+tag=$(echo $full | cut -d':' -f2)
 
 if [ -z $image ]; then
-image='latest'
+tag='latest'
 fi
 
 
