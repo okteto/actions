@@ -18,5 +18,3 @@ cat kustomization.yaml
 fi
 
 kubectl apply -k ./ --namespace $namespace
-
-kubectl rollout status --name --namespace $namespace
