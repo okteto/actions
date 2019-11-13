@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 token=$1
 namespace=$2
 

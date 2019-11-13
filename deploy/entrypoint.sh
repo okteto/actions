@@ -1,5 +1,6 @@
 #!/bin/sh
-ls -la 
+set -e
+
 namespace=$1
 manifest=$2
 image=$3
