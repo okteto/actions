@@ -8,6 +8,4 @@ export OKTETO_TOKEN=$token
 okteto version
 okteto namespace "$namespace"
 k="$(pwd)/.kube/config"
-export KUBECONFIG=$k
-echo ::set-output kubeconfig::$k
-::set-output kubeconfig::$k
+echo "::set-output name=kubeconfig::$k"
