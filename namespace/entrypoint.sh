@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/sh
 token=$1
 namespace=$2
 fild=$3
