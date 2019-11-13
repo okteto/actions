@@ -8,6 +8,12 @@ inputs:
   token: 
     description: 'Your okteto API token'
     required: true
+outputs:
+  kubeconfig: 
+    description: 'The path to the kubeconfig'
 runs:
-  using: 'node12'
-  main: 'lib/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.namespace }}

@@ -16,5 +16,10 @@ inputs:
     required: false
     default: '.'
 runs:
-  using: 'node12'
-  main: 'lib/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.tag }}
+    - ${{ inputs.file }}
+    - ${{ inputs.path }}
