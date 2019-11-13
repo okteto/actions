@@ -1,25 +1,24 @@
 name: 'Deploy'
-description: 'Deploy to Okteto Cloud'
+description: 'Updates manifest with new image and deploys to Okteto Cloud'
 inputs: 
   namespace:
     description: 'The target Kubernetes namespace.'
     required: true
-    default: ''
-  manifests:
-    description: 'Path to the Kubernetes manifests.'
-    required: true
+  manifest:
+    description: 'Path to the Kubernetes manifest.'
+    required: false
     default: 'k8s.yml'
   image:
     description: 'Docker image to update.'
     required: true
-    default: ''
   tag:
     description: 'The new tag.'
     required: true
-    default: ''
-outputs:
-  url: 
-    description: 'The URL of your application'
 runs:
-  using: 'node12'
-  main: 'lib/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.namespace }}
+    - ${{ inputs.manifests }}
+    - ${{ inputs.image }}
+    - ${{ inputs.tag }}
