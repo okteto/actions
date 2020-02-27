@@ -3,7 +3,7 @@ set -e
 token=$1
 namespace=$2
 
-export OKTETO_TOKEN=$token
+okteto login --token $token
 okteto version
 okteto namespace "$namespace"
 k="/github/home/.kube/config"
