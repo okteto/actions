@@ -1,6 +1,6 @@
 name: 'Build'
 description: 'Build an image from a Dockerfile using Okteto Cloud'
-inputs: 
+inputs:
   tag:
     description: 'Name and tag in the "name:tag" format'
     required: true
@@ -15,6 +15,9 @@ inputs:
     description: 'The path'
     required: false
     default: '.'
+  buildargs:
+    description: 'Use buildargs when you want to pass a list of environment variables as build-args'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -23,3 +26,4 @@ runs:
     - ${{ inputs.tag }}
     - ${{ inputs.file }}
     - ${{ inputs.path }}
+    - ${{ inputs.buildargs }}
