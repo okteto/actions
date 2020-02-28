@@ -9,13 +9,7 @@ args=$5
 
 BUILDPARAMS=""
 
-export OKTETO_TOKEN=$token
-
-if [ ! -d ${HOME}/.okteto ]; then
-  mkdir ${HOME}/.okteto
-fi
-
-wget -O ${HOME}/.okteto/.ca.crt https://storage.googleapis.com/get.okteto.com/okteto-cloud-ca-crt
+okteto login --token=$token
 
 if [ ! -z "${INPUT_BUILDARGS}" ]; then
   for ARG in $(echo "${INPUT_BUILDARGS}" | tr ',' '\n'); do
