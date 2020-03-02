@@ -14,6 +14,9 @@ inputs:
   waitOn:
     description: 'Wait until this resource is ready. Must follow the "resource/name" format'
     required: false
+  registry:
+    description: 'Use registry for pushing to a custom registry'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -22,3 +25,4 @@ runs:
     - ${{ inputs.manifest }}
     - ${{ inputs.tag }}
     - ${{ inputs.waitOn }}
+    - ${{ inputs.registry }}
