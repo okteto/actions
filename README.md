@@ -98,9 +98,6 @@ The path to the generated `kubeconfig` file.
 - Login to https://cloud.okteto.com and create a namespace.
 - Retrieve your API token from https://cloud.okteto.com.
 - [Create a secret](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in your repository named `OKTETO_TOKEN`, with your token as the value.
-- Login to https://hub.docker.com and create a token. 
-- [Create a secret](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) in your repository named `DOCKER_PASSWORD`, with your token as the value.
-
 
 ```
 on: [push]
@@ -111,15 +108,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - uses: actions-hub/docker/login@master
-      env:
-        DOCKER_USERNAME: ramiro
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
 
     - uses: okteto/actions/build@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
-        tag: ramiro/actions-test:${{ github.sha }}
+        tag: registry.cloud.okteto.net/cindy/actions-test:${{ github.sha }}
 
     - uses: okteto/actions/namespace@master
       id: namespace
@@ -133,7 +126,7 @@ jobs:
       with:
         namespace: actions-rberrelleza
         manifest: k8s.yml
-        tag: ramiro/actions-test:${{ github.sha }}
+        tag: registry.cloud.okteto.net/cindy/actions-test:${{ github.sha }}
         waitOn: deployment/hello-world  
 ```
 
