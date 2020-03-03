@@ -42,6 +42,36 @@ The path to the manifest to modify. Default `"k8s.yml"`.
 #### `waitOn`
 Name of the resource to wait on. Must follow the `"resource/name"` format.
 
+#### `registry`
+
+Set this to `registry.cloud.okteto.net` for an image built and tagged with `registry.cloud.okteto.net/<namespace>/<image>:<tag>`.
+
+```yaml
+    - name: Build & Publish to Okteto registry
+      uses: okteto/actions/build@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+        tag: registry.cloud.okteto.net/okteto-ns/image-name:tag
+
+    - name: Get Kubeconfig
+      uses: okteto/actions/namespace@master
+      id: namespace
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+        namespace: okteto-ns
+
+    - name: Deploy and Wait
+      uses: okteto/actions/deploy@master
+      env:
+        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
+      with:
+        namespace: okteto-ns
+        manifest: k8s.yml
+        tag: okteto-ns/image-name:tag
+        waitOn: deployment/action-test
+        registry: registry.cloud.okteto.net
+```
+
 ## Namespace
 Retrieve the credentials of the namespace from Okteto Cloud.
 
