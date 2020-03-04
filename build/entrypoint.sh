@@ -13,7 +13,7 @@ okteto login --token=$token
 
 if [ ! -z "${INPUT_BUILDARGS}" ]; then
   for ARG in $(echo "${INPUT_BUILDARGS}" | tr ',' '\n'); do
-    BUILDPARAMS="${BUILDPARAMS} --build-arg ${ARG}=\'\$${ARG}\'"
+    BUILDPARAMS="${BUILDPARAMS} --build-arg ${ARG}=\$${ARG}"
   done
 fi
 
