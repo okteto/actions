@@ -23,6 +23,18 @@ Name of the Dockerfile. Default `"Dockerfile"`.
 #### `path`
 The path to the files. Default `"."`.
 
+#### `buildargs`
+
+A list of environment variables as build-args
+
+```yaml
+      env:
+        PACKAGE_NAME: svc-api
+        VCS_REF: ${{ github.sha }}
+      with:
+        buildargs: PACKAGE_NAME,VCS_REF
+```
+
 ## Deploy
 Update the image using kustomize and then deploy a new version of your application into Okteto Cloud, using the credentials retrieved in the `namespace` step. 
 
