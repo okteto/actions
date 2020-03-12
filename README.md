@@ -4,14 +4,19 @@ Use these actions to deploy your Kubernetes applications directly into [Okteto C
 
 # Actions available
 
-## Build
-Build an image in Okteto Cloud and push it to the registry.
+## Login
+Login to Okteto Cloud. This should be run before any other action.
 
 ### Inputs
 
 #### `token`
 
 **Required** Your okteto API token.
+
+## Build
+Build an image in Okteto Cloud and push it to the registry.
+
+### Inputs
 
 #### `tag`
 
@@ -59,23 +64,24 @@ Name of the resource to wait on. Must follow the `"resource/name"` format.
 Set this to `registry.cloud.okteto.net` for an image built and tagged with `registry.cloud.okteto.net/<namespace>/<image>:<tag>`.
 
 ```yaml
+    - name: Login
+      users: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+        
     - name: Build & Publish to Okteto registry
       uses: okteto/actions/build@master
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
         tag: registry.cloud.okteto.net/okteto-ns/image-name:tag
 
     - name: Get Kubeconfig
       uses: okteto/actions/namespace@master
       id: namespace
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
         namespace: okteto-ns
 
     - name: Deploy and Wait
       uses: okteto/actions/deploy@master
-      env:
-        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
       with:
         namespace: okteto-ns
         manifest: k8s.yml
@@ -92,16 +98,6 @@ Retrieve the credentials of the namespace from Okteto Cloud.
 #### `namespace`
 
 **Required** The name of the Okteto Cloud namespace. It must already exist.
-
-#### `token`
-
-**Required** Your okteto API token.
-
-### Outputs
-
-#### `kubeconfig`
-
-The path to the generated `kubeconfig` file.
 
 # Example 
 
@@ -122,18 +118,20 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-    - uses: okteto/actions/namespace@master
+    - uses: okteto/actions/login@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
+
+    - uses: okteto/actions/namespace@master
+      with:
         namespace: actions-rberrelleza
 
     - uses: okteto/actions/push@master
-      env:
-        KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
       with:
-        token: ${{ secrets.OKTETO_TOKEN }}
+        namespace: actions-rberrelleza
+        name: hello-world
         deploy: "true"
-        name: "hello-world"
+        
 ```
 
 [Review this sample repo](https://github.com/rberrelleza/actions-test) to see a live example of the different available actions and the checks.

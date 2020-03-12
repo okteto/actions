@@ -1,9 +1,6 @@
 name: "Delete Namespace"
 description: "Delete an Okteto Cloud namespace and all its resources"
 inputs:
-  token: 
-    description: "Your okteto API token"
-    required: true
   namespace: 
     description: "The namespace name"
     required: true
@@ -11,5 +8,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.token }}
     - ${{ inputs.namespace }}
