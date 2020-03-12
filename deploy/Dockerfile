@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.8-cloud
+FROM okteto/bin:1.1.8-dev
 
 # Container image that runs your code
 FROM alpine:3.11
