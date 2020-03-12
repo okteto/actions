@@ -16,10 +16,10 @@ params="${params} --name $name"
 fi
 
 if [ "$deploy" == "true" ]; then
-params="--deploy"
+params="${params} --deploy"
 fi
 
-echo okteto push $params
+echo running: okteto push $params
 okteto push $params
 
 kubectl rollout status deployment/$name --namespace "$namespace" --timeout=300s
