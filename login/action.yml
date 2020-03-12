@@ -1,0 +1,11 @@
+name: "Login"
+description: "Login into to an Okteto Cloud account and setup the required context"
+inputs:
+  token: 
+    description: "Your okteto API token"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.token }}

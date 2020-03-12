@@ -103,7 +103,9 @@ Retrieve the credentials of the namespace from Okteto Cloud.
 
 The path to the generated `kubeconfig` file.
 
-# Example usage: Build a container, push it, and deploy it to Okteto Cloud
+# Example 
+
+This example builds a container with your changes and deploys it to Okteto Cloud. It assumes the deployment is called `hello-world`, and uses the `actions-rberrelleza` namespace.
 
 ## Prerequisites
 
@@ -120,26 +122,18 @@ jobs:
     steps:
     - uses: actions/checkout@master
     
-
-    - uses: okteto/actions/build@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-        tag: registry.cloud.okteto.net/cindy/actions-test:${{ github.sha }}
-
     - uses: okteto/actions/namespace@master
-      id: namespace
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
         namespace: actions-rberrelleza
-    
-    - uses: okteto/actions/deploy@master
+
+    - uses: okteto/actions/push@master
       env:
         KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}  
       with:
-        namespace: actions-rberrelleza
-        manifest: k8s.yml
-        tag: registry.cloud.okteto.net/cindy/actions-test:${{ github.sha }}
-        waitOn: deployment/hello-world  
+        token: ${{ secrets.OKTETO_TOKEN }}
+        deploy: "true"
+        name: "hello-world"
 ```
 
 [Review this sample repo](https://github.com/rberrelleza/actions-test) to see a live example of the different available actions and the checks.

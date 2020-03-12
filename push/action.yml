@@ -1,20 +1,22 @@
 name: "Push"
 description: "Build, push and deploy your changes to Okteto Cloud"
 inputs:
-  token: 
-    description: "Your okteto API token"
-    required: true
+  namespace: 
+    description: 'The target Kubernetes namespace.'
+    required: false
+  name: 
+    description: "The name of the deployment. If missing, it will use the one in your okteto.yml file"
+    required: false
   deploy: 
     description: "Create the deployment if it doesn't exist in the namespace"
     required: false
     default: 'false'
-  name: 
-    description: "The name of the deployment. If missing, it will use the one in your okteto.yml file"
-    required: false
+  
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.token }}
-    - ${{ inputs.deploy }}
+    - ${{ inputs.namespace }}
     - ${{ inputs.name }}
+    - ${{ inputs.deploy }}
+    
