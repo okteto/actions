@@ -23,5 +23,7 @@ echo running: okteto push $params
 okteto push $params
 
 if [ -z "$name" ]; then
-kubectl rollout status deployment/$name --namespace "$namespace" --timeout=300s
+name=$(yq r okteto.yml name)
 fi
+
+kubectl rollout status deployment/$name --namespace "$namespace" --timeout=300s
