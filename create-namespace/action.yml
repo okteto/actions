@@ -1,0 +1,15 @@
+name: "Create Namespace"
+description: "Create a namespace in Okteto Cloud"
+inputs:
+  token: 
+    description: "Your okteto API token"
+    required: true
+  namespace: 
+    description: "The namespace name"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.token }}
+    - ${{ inputs.namespace }}
