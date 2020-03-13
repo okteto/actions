@@ -4,8 +4,12 @@ inputs:
   token: 
     description: "Your okteto API token"
     required: true
+  url: 
+    description: "Okteto Enterprise URL. Use this to run your actions in your Okteto Enterprise instance (https://okteto.com/enterprise)."
+    required: false
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
     - ${{ inputs.token }}
+    - ${{ inputs.url }}
