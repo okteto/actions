@@ -1,10 +1,7 @@
 #!/bin/sh
 set -e
-token=$1
-namespace=$2
-
-okteto login --token $token
-okteto version
+namespace=$1
+echo running: okteto namespace "$namespace"
 okteto namespace "$namespace"
 k="/github/home/.kube/config"
 echo "::set-output name=kubeconfig::$k"

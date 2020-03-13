@@ -5,9 +5,6 @@ inputs:
     description: 'The target Kubernetes namespace.'
     required: true
     default: ''
-  token: 
-    description: 'Your okteto API token'
-    required: true
 outputs:
   kubeconfig: 
     description: 'The path to the kubeconfig'
@@ -15,5 +12,4 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.token }}
     - ${{ inputs.namespace }}
