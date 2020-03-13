@@ -6,6 +6,7 @@ application=$2
 name=$3
 version=$4
 configuration=$5
+repo=$6
 
 if [ -z "$application" ]; then
 echo application is not defined
@@ -33,11 +34,11 @@ encoded_configuration=$(base64 $configuration)
 
 echo Deploying $namespace/$name via $url
 
-cat << EOF > okteto.payload
+cat << EOF > deploy.payload
 {
   "query": "mutation {
     deployApp(
-    chart: \"${application}\", name: \"${name}\", space: \"${namespace}\", version: \"${version}\",repo: \"${repo}\", config: \"${encoded_configuration}\",) {
+    chart: \"${application}\", name: \"${name}\", space: \"${namespace}\", version: \"${version}\",repo: \"${repo}\", config: \"${encoded_configuration}\") {
     id
     }
   }"
@@ -48,6 +49,6 @@ curl -X POST \
 --url $url \
 -H "content-Type: application/json" \
 -H "authorization: Bearer $token" \
---data @okteto.payload
+--data @deploy.payload
 
 

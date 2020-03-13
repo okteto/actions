@@ -1,26 +1,31 @@
-name: 'Deploy Application'
-description: 'Deploy or Upgrade an Okteto Application'
+name: "Deploy Application"
+description: "Deploy or Upgrade an Okteto Application"
 inputs: 
   namespace:
-    description: 'The target namespace. If not defined, it will use the personal namespace of the token owner'
+    description: "The target namespace. If not defined, it will use the current context"
     required: false
   application:
-    description: 'The application to deploy'
+    description: "The application to deploy"
     required: true
   name:
-    description: 'The application name'
+    description: "The application name"
     required: true
   version:
-    description: 'The version to deploy'
+    description: "The version to deploy"
     required: false
   configuration:
-    description: 'Path to the application configuration, defaults to config.yaml'
-    required: true
+    description: "Path to the application configuration, defaults to config.yaml"
+    required: false
+    default: "config.yaml"
+  repository:
+    description: "URL of the application repository, defaults to Okteto Cloud's repository"
+    required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.namespace }}
     - ${{ inputs.application }}
     - ${{ inputs.name }}
     - ${{ inputs.configuration }}
+    - ${{ inputs.repository }}
