@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 
 namespace=$1
 name=$2
@@ -24,7 +24,7 @@ if [ ! -z "$wd" ]; then
 cd $wd
 fi
 
-echo running: okteto push $params
+echo running: okteto push $params on $pwd
 okteto push $params
 
 if [ -z "$name" ]; then
