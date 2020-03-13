@@ -4,6 +4,8 @@ FROM stedolan/jq as jq
 # Container image that runs your code
 FROM alpine:3.11
 
+RUN apk --no-cache add curl
+
 COPY --from=cli /usr/local/bin/okteto /usr/local/bin/okteto
 
 COPY --from=jq /usr/local/bin/jq /usr/local/bin/jq
