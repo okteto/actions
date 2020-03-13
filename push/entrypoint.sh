@@ -1,5 +1,5 @@
 #!/bin/sh
-set -ex
+set -e
 
 namespace=$1
 name=$2
