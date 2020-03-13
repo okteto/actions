@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.8-dev as cli
+FROM okteto/bin:1.1.9 as cli
 
 # Container image that runs your code
 FROM alpine:3.11

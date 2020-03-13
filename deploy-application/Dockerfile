@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.8-dev as cli
+FROM okteto/bin:1.1.9 as cli
 FROM stedolan/jq as jq
 
 # Container image that runs your code

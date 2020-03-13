@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.8-dev as cli
+FROM okteto/bin:1.1.9 as cli
 FROM mikefarah/yq as yq
 
 # Container image that runs your code
