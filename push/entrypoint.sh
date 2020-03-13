@@ -21,7 +21,7 @@ params="${params} --deploy"
 fi
 
 if [ ! -z "$wd" ]; then
-pushd $wd
+cd $wd
 fi
 
 echo running: okteto push $params
