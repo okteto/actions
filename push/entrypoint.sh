@@ -22,9 +22,10 @@ fi
 
 if [ ! -z "$wd" ]; then
 cd $wd
+ls -la
 fi
 
-echo running: okteto push $params on $pwd
+echo running: okteto push $params on $(pwd)
 okteto push $params
 
 if [ -z "$name" ]; then
