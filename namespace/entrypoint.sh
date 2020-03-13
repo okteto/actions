@@ -1,6 +1,5 @@
 #!/bin/sh
 set -e
-namespace=$2
-
+namespace=$1
 okteto version
 okteto namespace "$namespace"
