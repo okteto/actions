@@ -1,0 +1,15 @@
+name: 'Destroy Application'
+description: 'Destroy an Okteto Application'
+inputs: 
+  namespace:
+    description: 'The target namespace. If not defined, it will use the personal namespace of the token owner'
+    required: false
+  name:
+    description: 'The application name'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.namespace }}
+    - ${{ inputs.application }}
