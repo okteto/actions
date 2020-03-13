@@ -27,5 +27,6 @@ runs:
     - ${{ inputs.namespace }}
     - ${{ inputs.application }}
     - ${{ inputs.name }}
+    - ${{ inputs.version }}
     - ${{ inputs.configuration }}
     - ${{ inputs.repository }}
