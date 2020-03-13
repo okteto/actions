@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.6-cloud as cli
+FROM okteto/bin:1.1.9-cloud as cli
 
 FROM alpine:3.11
 
