@@ -1,5 +1,5 @@
 name: 'Namespace'
-description: 'Create and get the credentials for a Okteto Cloud namespace'
+description: 'Activate a namespace and get the credentials for a Okteto Cloud namespace'
 inputs: 
   namespace:
     description: 'The target Kubernetes namespace.'
