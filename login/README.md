@@ -25,7 +25,7 @@ name: example
 
 jobs:
 
-  build-and-deploy:
+  devflow:
     runs-on: ubuntu-latest
     steps:
     

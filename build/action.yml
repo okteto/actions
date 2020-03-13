@@ -4,9 +4,6 @@ inputs:
   tag:
     description: 'Name and tag in the "name:tag" format'
     required: true
-  token: 
-    description: 'Your okteto API token'
-    required: true
   file:
     description: 'Name of the Dockerfile (Default is "Dockerfile")'
     required: false
@@ -22,7 +19,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.token }}
     - ${{ inputs.tag }}
     - ${{ inputs.file }}
     - ${{ inputs.path }}

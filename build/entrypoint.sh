@@ -1,15 +1,12 @@
 #!/bin/sh
 set -e
 
-token=$1
-tag=$2
-file=$3
-path=$4
-args=$5
+tag=$1
+file=$2
+path=$3
+args=$4
 
 BUILDPARAMS=""
-
-okteto login --token=$token
 
 if [ ! -z "${INPUT_BUILDARGS}" ]; then
   for ARG in $(echo "${INPUT_BUILDARGS}" | tr ',' '\n'); do
@@ -18,5 +15,5 @@ if [ ! -z "${INPUT_BUILDARGS}" ]; then
 fi
 
 params=$(eval echo -t "$tag" -f "$file" "$BUILDPARAMS" "$path")
-echo $params
+echo running: okteto build $params
 okteto build $params

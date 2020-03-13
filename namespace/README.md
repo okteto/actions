@@ -5,15 +5,15 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Deleting a Namespace in Okteto Cloud
+# Github Action for Activating a Namespace in Okteto Cloud
 
-You can use this action to delete a namespace in Okteto Cloud as part of your automated development workflow.
+You can use this action to activate a namespace in Okteto Cloud, download the corresponding kubeconfig and set it as the current context.
 
 > Remember that the namespace name must have your github ID as a suffix.
 
 # Example
 
-This example runs the login action and then deletes a namespace.
+This example runs the login action and then activates a namespace.
 
 ```yaml
 # File: .github/workflows/workflow.yml
@@ -31,9 +31,9 @@ jobs:
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
     
-    - name: "Delete the previews namespace"
-      uses: okteto/actions/delete-namespace@master
+    - name: "Create devlopment environments namespace"
+      uses: okteto/actions/namespace@master
       with:
-        name: dev-previews-cindylopez
+        name: devenvs-cindylopez
 ```
 

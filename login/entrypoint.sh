@@ -3,6 +3,7 @@ set -e
 
 token=$1
 url=$2
+
 if [ -z $token ]; then
   echo "Okteto API token is required"
   exit 1
