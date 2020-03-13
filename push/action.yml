@@ -11,6 +11,9 @@ inputs:
     description: "Create the deployment if it doesn't exist in the namespace"
     required: false
     default: 'false'
+  working-directory:
+    description: "Working directory, defaults to the root of the repo"
+    required: false
   
 runs:
   using: "docker"
@@ -19,4 +22,5 @@ runs:
     - ${{ inputs.namespace }}
     - ${{ inputs.name }}
     - ${{ inputs.deploy }}
+    - ${{ inputs.working-directory }}
     

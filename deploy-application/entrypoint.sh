@@ -18,11 +18,6 @@ echo name is not defined
 exit 1
 fi
 
-if [ -z "$version" ]; then
-echo version is not defined
-exit 1
-fi
-
 if [ -z "$configuration" ]; then
 configuration=$(pwd)/config.yaml
 fi
