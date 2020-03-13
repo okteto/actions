@@ -28,7 +28,7 @@ fi
 echo running: okteto push $params on $(pwd)
 okteto push $params
 
-if [ -z "$name" ]; then
+if [ ! -z "$name" ]; then
 name=$(yq r okteto.yml name)
 kubectl rollout status deployment/$name --namespace "$namespace" --timeout=300s
 fi
