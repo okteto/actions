@@ -14,6 +14,6 @@ if [ ! -z "${INPUT_BUILDARGS}" ]; then
   done
 fi
 
-params=$(eval echo -t "$tag" -f "$file" "$BUILDPARAMS" "$path")
+params=$(eval echo --progress plain -t "$tag" -f "$file" "$BUILDPARAMS" "$path")
 echo running: okteto build $params
 okteto build $params
