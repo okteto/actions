@@ -1,4 +1,4 @@
-FROM okteto/bin:1.1.9-cloud as cli
+FROM okteto/okteto:1.8.2 as cli
 FROM mikefarah/yq as yq
 
 FROM alpine:3.11
