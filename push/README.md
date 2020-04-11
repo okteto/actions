@@ -43,10 +43,9 @@ jobs:
         manifest: k8s.yaml
 
     - name: "Push changes"
-      uses: okteto/actions/namespace@master
+      uses: okteto/actions/push@master
       with:
         namespace: cindylopez
         name: hello-world
-        deploy: "true"
 ```
 
