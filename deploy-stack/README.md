@@ -31,5 +31,7 @@ jobs:
     
     - name: "Create stack"
       uses: okteto/actions/create-stack@master
+      with:
+        build: "true"
 ```
 
