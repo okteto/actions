@@ -1,0 +1,24 @@
+name: "Deploy Stack"
+description: "Deploys a stack in Okteto Cloud"
+inputs:
+  namespace: 
+    description: 'If present, the namespace scope for this action. If not specified, it will use the current context'
+    required: false
+  name: 
+    description: "The name of the stack. If missing, it will use the one in your okteto-stacks.yml file"
+    required: false
+  build: 
+    description: "Create the deployment if it doesn't exist in the namespace. If not specified, the action will fail if the deployment doesn't exist"
+    required: false
+    default: 'false'
+  working-directory:
+    description: "Working directory, defaults to the root of the repo"
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.namespace }}
+    - ${{ inputs.name }}
+    - ${{ inputs.build }}
+    - ${{ inputs.working-directory }}
