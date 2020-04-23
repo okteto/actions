@@ -5,13 +5,13 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Deploying a Stack in Okteto Cloud
+# Github Action for Destroying a Stack in Okteto Cloud
 
-You can use this action to [deploy a stacks](https://okteto.com/docs/cloud/stack) in Okteto Cloud as part of your automated development workflow.
+You can use this action to [destroy a stacks](https://okteto.com/docs/cloud/stack) in Okteto Cloud as part of your automated development workflow.
 
 # Example
 
-This example runs the login action and then creates the stack
+This example runs the login action and then destroys the stack
 
 ```yaml
 # File: .github/workflows/workflow.yml
@@ -30,10 +30,9 @@ jobs:
         token: ${{ secrets.OKTETO_TOKEN }}
     
     - uses: okteto/actions/namespace@master
-    
-    - name: "Create stack"
-      uses: okteto/actions/create-stack@master
-      with:
-        build: "true"
+
+    - name: "Destroy stack"
+      uses: okteto/actions/destroy-stack@master
+      
 ```
 
