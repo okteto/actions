@@ -5,13 +5,19 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Creating a Namespace in Okteto Cloud
+## Github Action for Creating a Namespace in Okteto Cloud
 
 You can use this action to create a namespace in Okteto Cloud as part of your automated development workflow.
 
+## Inputs
+
+### `namespace`
+
+**Required**  The name of the Okteto namespace to create.
+
 > Remember that the namespace name must have your github ID as a suffix.
 
-# Example
+## Example usage
 
 This example runs the login action and then activates a namespace.
 

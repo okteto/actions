@@ -11,6 +11,18 @@ You can use this action to activate a namespace in Okteto Cloud, download the co
 
 > Remember that the namespace name must have your github ID as a suffix.
 
+## Inputs
+
+### `namespace`
+
+The namespace to activate. If empty, it will use your personal namespace.
+
+## Outputs
+
+### `kubeconfig`
+
+The path to the generated `kubeconfig` file.
+
 # Example
 
 This example runs the login action and then activates a namespace.

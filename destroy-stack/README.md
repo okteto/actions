@@ -9,7 +9,21 @@ Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
 You can use this action to [destroy a stack](https://okteto.com/docs/cloud/stack) in Okteto Cloud as part of your automated development workflow.
 
-# Example
+## Inputs
+
+### `namespace`
+
+The Okteto namespace to use. If not specified it will use the namespace specified by the `namespace` action.
+
+### `name`
+
+The name of the deployment. If not specified it will use the one in your `okteto.yml` file.
+
+### `working-directory`
+
+The working directory of the action. Defaults to the root folder of the repo.
+
+# Example usage
 
 This example runs the login action and then destroys the stack
 
@@ -32,7 +46,6 @@ jobs:
     - uses: okteto/actions/namespace@master
 
     - name: "Destroy stack"
-      uses: okteto/actions/destroy-stack@master
-      
+      uses: okteto/actions/destroy-stack@master  
 ```
 

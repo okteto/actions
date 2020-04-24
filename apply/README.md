@@ -5,11 +5,21 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Applying Resources in Okteto Cloud
+## Github Action for Applying Resources in Okteto Cloud
 
 You can use this action to create or update resources in your Okteto Cloud namespace. This is equivalent to running `kubectl apply -f $manifest`.
 
-# Example
+## Inputs
+
+### `namespace`
+
+The Okteto namespace to use. If not specified it will use the namespace specified by the `namespace` action.
+
+### `manifest`
+
+Path to the Kubernetes manifest. Can be a file or a directory. It defaults to `k8s.yml`.
+
+## Example usage
 
 This example runs the login action, activates a namespace and creates a deployment.
 
