@@ -8,7 +8,7 @@ inputs:
     description: "The name of the stack. If missing, it will use the one in your okteto-stack.yml file"
     required: false
   build: 
-    description: "Create the deployment if it doesn't exist in the namespace. If not specified, the action will fail if the deployment doesn't exist"
+    description: "Build the images before deploy the stack"
     required: false
     default: 'false'
   working-directory:
