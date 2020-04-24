@@ -7,7 +7,7 @@ Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
 # Github Action for Deploying a Stack in Okteto Cloud
 
-You can use this action to [deploy a stacks](https://okteto.com/docs/cloud/stack) in Okteto Cloud as part of your automated development workflow.
+You can use this action to [deploy a stack](https://okteto.com/docs/cloud/stack) in Okteto Cloud as part of your automated development workflow.
 
 # Example
 
