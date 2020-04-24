@@ -1,8 +1,4 @@
-FROM okteto/okteto:1.8.2 as cli
-
-FROM alpine:3.11
-
-COPY --from=cli /usr/local/bin/kubectl /usr/local/bin/kubectl
+FROM okteto/okteto:1.8.4 as cli
 
 COPY entrypoint.sh /entrypoint.sh
 
