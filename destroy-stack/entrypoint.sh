@@ -3,8 +3,7 @@ set -e
 
 namespace=$1
 name=$2
-deploy=$3
-wd=$4
+wd=$3
 
 params=""
 
@@ -16,13 +15,9 @@ if [ ! -z "$name" ]; then
 params="${params} --name $name"
 fi
 
-if [ "$deploy" == "true" ]; then
-params="${params} --deploy"
-fi
-
 if [ ! -z "$wd" ]; then
 cd $wd
 fi
 
-echo running: okteto push $params on $(pwd)
-okteto push $params
+echo running: okteto stack destroy $params on $(pwd)
+okteto stack destroy $params

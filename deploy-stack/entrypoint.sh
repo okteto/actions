@@ -3,10 +3,10 @@ set -e
 
 namespace=$1
 name=$2
-deploy=$3
+build=$3
 wd=$4
 
-params=""
+params="--wait "
 
 if [ ! -z "$namespace" ]; then
 params="${params} --namespace $namespace"
@@ -16,13 +16,13 @@ if [ ! -z "$name" ]; then
 params="${params} --name $name"
 fi
 
-if [ "$deploy" == "true" ]; then
-params="${params} --deploy"
+if [ "$build" == "true" ]; then
+params="${params} --build"
 fi
 
 if [ ! -z "$wd" ]; then
 cd $wd
 fi
 
-echo running: okteto push $params on $(pwd)
-okteto push $params
+echo running: okteto stack deploy $params on $(pwd)
+okteto stack deploy $params
