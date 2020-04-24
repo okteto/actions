@@ -3,7 +3,7 @@ description: 'Activate a namespace and get the credentials for a Okteto Cloud na
 inputs: 
   namespace:
     description: 'The target Kubernetes namespace.'
-    required: true
+    required: false
     default: ''
 outputs:
   kubeconfig: 

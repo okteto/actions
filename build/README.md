@@ -5,11 +5,37 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Building your Containers in Okteto Cloud
+## Github Action for Building your Containers in Okteto Cloud
 
 You can use this action to build an image from a Dockerfile using Okteto Cloud.
 
-# Example
+## Inputs
+
+### `tag`
+
+**Required**  Name and tag in the `name:tag` format.
+
+### `file`
+
+Name of the Dockerfile. Default `"Dockerfile"`.
+
+### `path`
+
+The path to the files. Default `"."`.
+
+### `buildargs`
+
+A list of environment variables as build-args
+
+```yaml
+      env:
+        PACKAGE_NAME: svc-api
+        VCS_REF: ${{ github.sha }}
+      with:
+        buildargs: PACKAGE_NAME,VCS_REF
+```
+
+## Example usage
 
 This example runs the login action and then builds and pushes an image.
 
@@ -35,26 +61,3 @@ jobs:
         tag: registry.cloud.okteto.net/cindy/hello-world:${{ github.sha }}
 ```
 
-# Inputs
-
-## `tag`
-
-**Required**  Name and tag in the `name:tag` format.
-
-## `file`
-Name of the Dockerfile. Default `"Dockerfile"`.
-
-## `path`
-The path to the files. Default `"."`.
-
-## `buildargs`
-
-A list of environment variables as build-args
-
-```yaml
-      env:
-        PACKAGE_NAME: svc-api
-        VCS_REF: ${{ github.sha }}
-      with:
-        buildargs: PACKAGE_NAME,VCS_REF
-```

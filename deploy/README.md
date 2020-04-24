@@ -5,11 +5,35 @@ GitHub Actions gives you the flexibility to build an automated software developm
 
 Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
-# Github Action for Deploying your Application in Okteto Cloud
+## Github Action for Deploying your Application in Okteto Cloud
 
 You can use this action to update the image and update your application running in Okteto Cloud.
 
-# Example
+This is deprecated in favor of the [push action](../push).
+
+## Inputs
+
+### `namespace`
+
+The Okteto namespace to use. If not specified it will use the namespace specified by the `namespace` action.
+
+### `manifest`
+
+The path to the Kubernetes manifest. It can be a file or a directory. Defaults to `k8s.yml`.
+
+### `tag` 
+
+The new image name and optionally a tag in the "name:tag" format.
+
+### `waitOn`
+
+Wait until the mentioned resource is ready. Must follow the "resource/name" format (e.g. `deployment/hello-world`).
+
+### `registry`
+
+Set this to `registry.cloud.okteto.net` for an image built and tagged with `registry.cloud.okteto.net/<namespace>/<image>:<tag>`.
+
+## Example usage
 
 This example runs the login action and then builds and pushes an image to the Okteto Registry and deploys a kubernetes application to Okteto Cloud.
 
@@ -48,23 +72,3 @@ jobs:
         waitOn: deployment/hello-world
         registry: registry.cloud.okteto.net
 ```
-
-# Inputs
-
-## `namespace`
-
-**Required** The name of the Okteto Cloud namespace. It must already exist.
-
-## `tag`
-**Required** Name and optionally a tag in the "name:tag" format. If the tag is not specified, it'll default to `latest`. 
-
-## `manifest`
-
-The path to the manifest to modify. Default `"k8s.yml"`.
-
-## `waitOn`
-Name of the resource to wait on. Must follow the `"resource/name"` format.
-
-## `registry`
-
-Set this to `registry.cloud.okteto.net` for an image built and tagged with `registry.cloud.okteto.net/<namespace>/<image>:<tag>`.
