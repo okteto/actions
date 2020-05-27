@@ -7,16 +7,15 @@ Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 
 # Available Actions
 
-- [Activate Namespace](namespace)
-- [Apply](apply)
-- [Build](build)
-- [Create Namespace](create-namespace)
-- [Delete Namespace](delete-namespace)
-- [Deploy](deploy)
-- [Deploy Stack](deploy-stack)
-- [Destroy Stack](destroy-stack)
-- [Login](login)
-- [Push](push)
+- [Activate Namespace](https://github.com/okteto/namespace)
+- [Apply](https://github.com/okteto/apply)
+- [Build](https://github.com/okteto/build)
+- [Create Namespace](https://github.com/okteto/create-namespace)
+- [Delete Namespace](https://github.com/okteto/delete-namespace)
+- [Deploy Stack](https://github.com/okteto/deploy-stack)
+- [Destroy Stack](https://github.com/okteto/destroy-stack)
+- [Login](https://github.com/okteto/login)
+- [Push](https://github.com/okteto/push)
 
 # Contributing
 
