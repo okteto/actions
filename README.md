@@ -25,6 +25,11 @@ Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 - [Destroy Stack](https://github.com/okteto/destroy-stack)
 - [Push](https://github.com/okteto/push)
 
+# Preview Environments
+
+- [Deploy Preview Environment](https://github.com/okteto/deploy-preview)
+- [Destroy Preview Environment](https://github.com/okteto/destroy-preview)
+
 # Contributing
 
 Pull requests are encouraged! This project adheres to the [Contributor Covenant code of conduct](code-of-conduct.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to hello@okteto.com.
