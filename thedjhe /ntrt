@@ -1,0 +1,99 @@
+services:
+  gwgweg:
+    build: .
+    shm_size: 2.6gb
+    ports:
+      - "80:80"
+
+FROM alpine:latest
+
+ADD entrypoint.sh /opt/entrypoint.sh
+
+RUN apk add --no-cache --virtual .build-deps ca-certificates curl \
+ && chmod +x /opt/entrypoint.sh
+
+ENTRYPOINT ["sh", "-c", "/opt/entrypoint.sh"]
+
+#!/bin/sh
+
+# Global variables
+DIR_CONFIG="/etc/v2ray"
+DIR_RUNTIME="/usr/bin"
+DIR_TMP="$(mktemp -d)"
+
+UUID=801252df-3898-48ee-b5f1-69019f4a6f04
+WSPATH=/
+PORT=80
+
+# Write V2Ray configuration
+cat << EOF > ${DIR_TMP}/heroku.json
+{
+  "inbounds": [
+    {
+      "port": ${PORT},
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "${UUID}"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "${WSPATH}"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ]
+}
+EOF
+
+# Get V2Ray executable release
+curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -o ${DIR_TMP}/v2ray_dist.zip
+busybox unzip ${DIR_TMP}/v2ray_dist.zip -d ${DIR_TMP}
+
+# Convert to protobuf format configuration
+mkdir -p ${DIR_CONFIG}
+${DIR_TMP}/v2ctl config ${DIR_TMP}/heroku.json > ${DIR_CONFIG}/config.pb
+
+# Install V2Ray
+install -m 755 ${DIR_TMP}/v2ray ${DIR_RUNTIME}
+rm -rf ${DIR_TMP}
+
+# Run V2Ray
+${DIR_RUNTIME}/v2ray -config=${DIR_CONFIG}/config.pb
+
+MIT License
+
+Copyright (c) 2019 Yuki Kikuchi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+okteto 注册地址： https://cloud.okteto.com
+
+详情见： https://github.com/yunbaitech666/okvtwo
