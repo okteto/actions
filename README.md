@@ -1,11 +1,14 @@
 # GitHub Actions for Okteto
 
-## Automate your development workflows using Github Actions and Okteto
-GitHub Actions gives you the flexibility to build an automated software development workflows. With GitHub Actions for Okteto  you can create workflows to build, deploy and update your applications in [Okteto Cloud](https://okteto.com).
+## Automate your development workflows using GitHub Actions and Okteto
 
-Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
+GitHub Actions gives you the flexibility to build automated software development workflows. With GitHub Actions for Okteto, you can create workflows to build, deploy and update your applications in [Okteto](https://okteto.com).
+
+Get started today [for a free Okteto account](https://okteto.com)!
 
 # Available Actions
+
+> All our actions work on [Okteto SaaS and Okteto Self-Hosted](https://www.okteto.com/pricing).
 
 - [Login](https://github.com/okteto/login)
 - [Activate Namespace](https://github.com/okteto/namespace)
