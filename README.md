@@ -12,7 +12,7 @@ Please try out the GitHub Actions for Okteto and share your feedback via Twitter
 
 > All our actions work on [Okteto SaaS and Okteto Self-Hosted](https://www.okteto.com/pricing).
 
-- [Login](https://github.com/okteto/login)
+- [Context](https://github.com/okteto/context)
 - [Activate Namespace](https://github.com/okteto/namespace)
 
 ## Namespace management
