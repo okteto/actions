@@ -6,11 +6,11 @@ GitHub Actions gives you the flexibility to build automated software development
 
 Get started today [for a free Okteto account](https://okteto.com)!
 
-Please try out the GitHub Actions for Okteto and share your feedback via Twitter on [@OktetoHQ](https://twitter.com/oktetohq). If you encounter a problem, please open an issue on the GitHub repository for the specific action.
+Please try out the GitHub Actions for Okteto and share your feedback via Twitter with [@OktetoHQ](https://twitter.com/oktetohq). If you encounter a problem, please open an issue on the GitHub repository for the specific action.
 
 # Available Actions
 
-> All our actions work on [Okteto SaaS and Okteto Self-Hosted](https://www.okteto.com/pricing).
+> All of our actions work on [Okteto SaaS and Okteto Self-Hosted](https://www.okteto.com/pricing).
 
 - [Context](https://github.com/okteto/context)
 - [Activate Namespace](https://github.com/okteto/namespace)
