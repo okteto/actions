@@ -4,7 +4,7 @@
 
 GitHub Actions gives you the flexibility to build automated software development workflows. With GitHub Actions for Okteto, you can create workflows to build, deploy and update your applications in [Okteto](https://okteto.com).
 
-Get started today [for a free Okteto account](https://okteto.com)!
+Try Okteto for free for 30 days, no credit card required. [Start your 30-day trial now](https://www.okteto.com/free-trial/)!
 
 Please try out the GitHub Actions for Okteto and share your feedback via Twitter with [@OktetoHQ](https://twitter.com/oktetohq). If you encounter a problem, please open an issue on the GitHub repository for the specific action.
 
