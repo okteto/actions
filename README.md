@@ -1,13 +1,18 @@
-# GitHub Actions for Okteto Cloud
+# GitHub Actions for Okteto
 
-## Automate your development workflows using Github Actions and Okteto Cloud
-GitHub Actions gives you the flexibility to build an automated software development workflows. With GitHub Actions for Okteto Cloud you can create workflows to build, deploy and update your applications in [Okteto Cloud](https://cloud.okteto.com).
+## Automate your development workflows using GitHub Actions and Okteto
 
-Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
+GitHub Actions gives you the flexibility to build automated software development workflows. With GitHub Actions for Okteto, you can create workflows to build, deploy and update your applications in [Okteto](https://okteto.com).
+
+Try Okteto for free for 30 days, no credit card required. [Start your 30-day trial now](https://www.okteto.com/free-trial/)!
+
+Please try out the GitHub Actions for Okteto and share your feedback via Twitter with [@OktetoHQ](https://twitter.com/oktetohq). If you encounter a problem, please open an issue on the GitHub repository for the specific action.
 
 # Available Actions
 
-- [Login](https://github.com/okteto/login)
+> All of our actions work on [Okteto SaaS and Okteto Self-Hosted](https://www.okteto.com/pricing).
+
+- [Context](https://github.com/okteto/context)
 - [Activate Namespace](https://github.com/okteto/namespace)
 
 ## Namespace management
@@ -15,17 +20,13 @@ Get started today with a [free Okteto Cloud account](https://cloud.okteto.com)!
 - [Create Namespace](https://github.com/okteto/create-namespace)
 - [Delete Namespace](https://github.com/okteto/delete-namespace)
 
-## Application Deployment
+## Deploy your Environments
 
-- [Apply](https://github.com/okteto/apply)
 - [Build](https://github.com/okteto/build)
 - [Deploy Pipeline](https://github.com/okteto/pipeline)
 - [Destroy Pipeline](https://github.com/okteto/destroy-pipeline)
-- [Deploy Stack](https://github.com/okteto/deploy-stack)
-- [Destroy Stack](https://github.com/okteto/destroy-stack)
-- [Push](https://github.com/okteto/push)
 
-# Preview Environments
+# Create Preview Environments for every Pull Request
 
 - [Deploy Preview Environment](https://github.com/okteto/deploy-preview)
 - [Destroy Preview Environment](https://github.com/okteto/destroy-preview)
